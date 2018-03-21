@@ -39,7 +39,7 @@ include("include/head.php");
           <div class="modal-body">
       		    <?php 
       				echo"
-      				<form method='post' action='client.php'>
+      				<form id ='client' method='post' action='client.php'>
       				<div style='width:100%;text-align:center;'>
       				<label for='nom' style='font-weight:bold;'>Nom</label><br>
       				<input name='nom' id='nom' style='text-align:center;' value='".$_SESSION["nom"]."'></input><br>
@@ -174,7 +174,7 @@ if(isset($_POST["enregistrer"])) { // si le bouton "enregistrer" est appuyé
     {
 	$Login = $_SESSION["login"];
 
-    $con=mysqli_connect("localhost","root","","click_to_call");
+    $con=mysqli_connect("$PARAM_hote","$PARAM_utilisateur","$PARAM_mot_passe","$PARAM_nom_bd");
 // Check connection
 if (mysqli_connect_errno())
   {
@@ -193,6 +193,13 @@ mysqli_close($con);
 }
 include("include/foot.php");
 ?>
+    <script>
+    $(function() {
+      $('#client').ajaxForm(function() {
+        alert("test");
+      });
+    });
+    </script>
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -207,6 +214,8 @@ include("include/foot.php");
     <!-- Custom scripts for this page-->
     <script src="js/sb-admin-datatables.min.js"></script>
     <script src="js/sb-admin-charts.min.js"></script>
+    <!--<script src="ajax.js"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js" integrity="sha384-FzT3vTVGXqf7wRfy8k4BiyzvbNfeYjK+frTVqZeNDFl8woCbF0CYG6g2fMEFFo/i" crossorigin="anonymous"></script>
 </body>
 
 </html>
