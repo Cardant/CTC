@@ -5,7 +5,7 @@ $bdd = new PDO('mysql:host=' . $PARAM_hote . ';dbname=' . $PARAM_nom_bd . ';char
 session_start();
 
 if ($_SESSION["rang"] == 1) {
-    header('Location: index.php');
+	header('Location: index.php');
 }
 
 include "include/head.php";
@@ -94,93 +94,93 @@ echo "
 
 <?php
 if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
-    $strHost = "192.168.141.18";
-    $strUser = "admin";
-    $strSecret = "secret";
+	$strHost = "192.168.141.18";
+	$strUser = "admin";
+	$strSecret = "secret";
 # Numéro Technicien
 
-    $strChannel = "SIP/11";
-    $strContext = "base";
-    $strWaitTime = "30";
-    $strPriority = "1";
-    $strMaxRetry = "2";
+	$strChannel = "SIP/11";
+	$strContext = "base";
+	$strWaitTime = "30";
+	$strPriority = "1";
+	$strMaxRetry = "2";
 # Numéro à appeler
-    if (isset($_POST["numero"])) {
-        echo "[DEBUG] la case est coché";
-        $query = $bdd->prepare('SELECT * FROM users WHERE id ="' . $_SESSION["id"] . '"');
-        $query->execute();
-        print_r($query->errorInfo());
-        $data = $query->fetch();
-        $strExten = $data['telephone'];
-        echo "[DEBUG] le requete est faite";
+	if (isset($_POST["numero"])) {
+		echo "[DEBUG] la case est coché";
+		$query = $bdd->prepare('SELECT * FROM users WHERE id ="' . $_SESSION["id"] . '"');
+		$query->execute();
+		print_r($query->errorInfo());
+		$data = $query->fetch();
+		$strExten = $data['telephone'];
+		echo "[DEBUG] le requete est faite";
 
-    } else if (isset($_POST['txtphonenumber'])) {
-        echo "[DEBUG] le numero est entré manuellement";
+	} else if (isset($_POST['txtphonenumber'])) {
+		echo "[DEBUG] le numero est entré manuellement";
 
-        $strExten = $_POST['txtphonenumber'];
-    }
-    $strCallerId = "Web Call $strExten";
-    $length = strlen($strExten);
+		$strExten = $_POST['txtphonenumber'];
+	}
+	$strCallerId = "Web Call $strExten";
+	$length = strlen($strExten);
 
-    if ( /*$length == 4 && */is_numeric($strExten)) {
-        $socket = fsockopen($strHost, 5038);
-        if ($socket) {
-            fputs($socket, "Action: login\r\n");
-            fputs($socket, "Events: off\r\n");
-            fputs($socket, "Username: $strUser\r\n");
-            fputs($socket, "Secret: $strSecret\r\n\r\n");
-            fputs($socket, "Action: originate\r\n");
-            fputs($socket, "Channel: $strChannel\r\n");
-            fputs($socket, "WaitTime: $strWaitTime\r\n");
-            fputs($socket, "CallerId: $strCallerId\r\n");
-            fputs($socket, "Exten: $strExten\r\n");
-            fputs($socket, "Context: $strContext\r\n");
-            fputs($socket, "Priority: $strPriority\r\n\r\n");
-            fputs($socket, "Action: Logoff\r\n\r\n");
-            while ($line = fgets($socket)) {
-                $line = trim($line);
-                echo $line . "<br>";
-            }
-            fclose($socket);
-        }
-    }
+	if ( /*$length == 4 && */is_numeric($strExten)) {
+		$socket = fsockopen($strHost, 5038);
+		if ($socket) {
+			fputs($socket, "Action: login\r\n");
+			fputs($socket, "Events: off\r\n");
+			fputs($socket, "Username: $strUser\r\n");
+			fputs($socket, "Secret: $strSecret\r\n\r\n");
+			fputs($socket, "Action: originate\r\n");
+			fputs($socket, "Channel: $strChannel\r\n");
+			fputs($socket, "WaitTime: $strWaitTime\r\n");
+			fputs($socket, "CallerId: $strCallerId\r\n");
+			fputs($socket, "Exten: $strExten\r\n");
+			fputs($socket, "Context: $strContext\r\n");
+			fputs($socket, "Priority: $strPriority\r\n\r\n");
+			fputs($socket, "Action: Logoff\r\n\r\n");
+			while ($line = fgets($socket)) {
+				$line = trim($line);
+				echo $line . "<br>";
+			}
+			fclose($socket);
+		}
+	}
 
-    // les champs sont bien posté et pas vide, on sécurise les données entrées par le membre:
-    $Login = $_SESSION["login"];
-    $dates = strftime('%d/%m/%Y - %H:%M:%S');
-    //date('l jS \of F Y h:i:s A');
-    $etat = 0;
+	// les champs sont bien posté et pas vide, on sécurise les données entrées par le membre:
+	$Login = $_SESSION["login"];
+	$dates = strftime('%d/%m/%Y - %H:%M:%S');
+	//date('l jS \of F Y h:i:s A');
+	$etat = 0;
 
-    $insert = $bdd->prepare('INSERT INTO `ctc_request`(`user_id`, `dates`, `etat`) VALUES (:user_id, :dates, :etat)');
-    $insert->bindParam(':user_id', $_SESSION["id"]);
-    $insert->bindParam(':dates', $dates);
-    $insert->bindParam(':etat', $etat);
-    $insert->execute();
+	$insert = $bdd->prepare('INSERT INTO `ctc_request`(`user_id`, `dates`, `etat`) VALUES (:user_id, :dates, :etat)');
+	$insert->bindParam(':user_id', $_SESSION["id"]);
+	$insert->bindParam(':dates', $dates);
+	$insert->bindParam(':etat', $etat);
+	$insert->execute();
 }
 
 if (isset($_POST["enregistrer"])) { // si le bouton "enregistrer" est appuyé
 
-    if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['mail']) || empty($_POST['telephone'])) //Oublie d'un champ
-    {
-        echo "Un champ est incomplet";
-    } else {
-        $Login = $_SESSION["login"];
+	if (empty($_POST['nom']) || empty($_POST['prenom']) || empty($_POST['mail']) || empty($_POST['telephone'])) //Oublie d'un champ
+	{
+		echo "Un champ est incomplet";
+	} else {
+		$Login = $_SESSION["login"];
 
-        $con = mysqli_connect("$PARAM_hote", "$PARAM_utilisateur", "$PARAM_mot_passe", "$PARAM_nom_bd");
+		$con = mysqli_connect("$PARAM_hote", "$PARAM_utilisateur", "$PARAM_mot_passe", "$PARAM_nom_bd");
 // Check connection
-        if (mysqli_connect_errno()) {
-            echo "Failed to connect to MySQL: " . mysqli_connect_error();
-        }
+		if (mysqli_connect_errno()) {
+			echo "Failed to connect to MySQL: " . mysqli_connect_error();
+		}
 
 // Perform queries
-        mysqli_query($con, 'UPDATE users SET nom="' . $_POST['nom'] . '", prenom="' . $_POST['prenom'] . '", mail="' . $_POST['mail'] . '",telephone=' . $_POST['telephone'] . ' WHERE login="' . $Login . '"');
-        $_SESSION['mail'] = $_POST['mail'];
-        $_SESSION['nom'] = $_POST['nom'];
-        $_SESSION['prenom'] = $_POST['prenom'];
-        $_SESSION['telephone'] = $_POST['telephone'];
-        mysqli_close($con);
+		mysqli_query($con, 'UPDATE users SET nom="' . $_POST['nom'] . '", prenom="' . $_POST['prenom'] . '", mail="' . $_POST['mail'] . '",telephone=' . $_POST['telephone'] . ' WHERE login="' . $Login . '"');
+		$_SESSION['mail'] = $_POST['mail'];
+		$_SESSION['nom'] = $_POST['nom'];
+		$_SESSION['prenom'] = $_POST['prenom'];
+		$_SESSION['telephone'] = $_POST['telephone'];
+		mysqli_close($con);
 
-    }
+	}
 }
 include "include/foot.php";
 ?>
