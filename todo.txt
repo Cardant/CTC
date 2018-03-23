@@ -1,0 +1,5 @@
+A FAIRE:
+
+Faire en sorte de pouvoir écrire dans la base de données depuis l'asterisk pour:
+- changer l'etat de disponibilité des techniciens,
+- changer le timer des techniciens
