@@ -1,5 +1,11 @@
 A FAIRE:
 
 Faire en sorte de pouvoir écrire dans la base de données depuis l'asterisk pour:
-- changer l'etat de disponibilité des techniciens,
-- changer le timer des techniciens
+- changer l'etat de disponibilité des techniciens lorsqu'il prend l'appel et lorsqu'il raccroche,
+- changer le timer des techniciens ( incrémentation du timer lorsqu'il raccroche),
+
+Ecriture d'un script qui réinitialise le timer des techniciens tous les jours à minuit (par exemple).
+Ecriture d'un script qui passe l'etat d'un technicien à "indisponible" en dehors de ses horaires de travail.
+
+
+Possibilité complémentaire / alternative: ajout d'un bouton sur la page du technicien pour qu'il modifie lui même son état de disponibilité.
