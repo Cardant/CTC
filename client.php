@@ -98,8 +98,11 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	$strUser = "admin";
 	$strSecret = "secret";
 # Numéro Technicien
-
-	$strChannel = "SIP/11";
+	$numero = $bdd->prepare('SELECT * FROM `worktime` WHERE etat_disponible = 0 ORDER BY timer LIMIT 1');
+	$numero->execute();
+	$numero_technicien = $numero->fetch();
+	$technicien = $numero_technicien['telephone'];
+	$strChannel = "SIP/$technicien";
 	$strContext = "base";
 	$strWaitTime = "30";
 	$strPriority = "1";
@@ -109,7 +112,7 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 		echo "[DEBUG] la case est coché";
 		$query = $bdd->prepare('SELECT * FROM users WHERE id ="' . $_SESSION["id"] . '"');
 		$query->execute();
-		print_r($query->errorInfo());
+		//print_r($query->errorInfo());
 		$data = $query->fetch();
 		$strExten = $data['telephone'];
 		echo "[DEBUG] le requete est faite";
@@ -150,7 +153,6 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	$dates = strftime('%d/%m/%Y - %H:%M:%S');
 	//date('l jS \of F Y h:i:s A');
 	$etat = 0;
-
 	$insert = $bdd->prepare('INSERT INTO `ctc_request`(`user_id`, `dates`, `etat`) VALUES (:user_id, :dates, :etat)');
 	$insert->bindParam(':user_id', $_SESSION["id"]);
 	$insert->bindParam(':dates', $dates);
