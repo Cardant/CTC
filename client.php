@@ -1,11 +1,16 @@
 <?php
 require 'pdo.php';
 $bdd = new PDO('mysql:host=' . $PARAM_hote . ';dbname=' . $PARAM_nom_bd . ';charset=utf8', $PARAM_utilisateur, $PARAM_mot_passe);
-
 session_start();
 
-if ($_SESSION["rang"] == 1) {
-	header('Location: index.php');
+// Condition pour afficher la page : être client Sinon redirection vers la page de connexion
+if (!empty($_SESSION['login'])) {
+
+	if ($_SESSION["rang"] == 1) {
+		header('Location: index.php');
+	}
+} else {
+	header('Location: login.php');
 }
 
 include "include/head.php";
@@ -98,6 +103,7 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	$strUser = "admin";
 	$strSecret = "secret";
 # Numéro Technicien
+#etat_disponible = 0 <=> disponbile / etat_disponible = 1 <=> indisponible
 	$numero = $bdd->prepare('SELECT * FROM `worktime` WHERE etat_disponible = 0 ORDER BY timer LIMIT 1');
 	$numero->execute();
 	$numero_technicien = $numero->fetch();
@@ -112,7 +118,7 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 		echo "[DEBUG] la case est coché";
 		$query = $bdd->prepare('SELECT * FROM users WHERE id ="' . $_SESSION["id"] . '"');
 		$query->execute();
-		//print_r($query->errorInfo());
+		print_r($query->errorInfo());
 		$data = $query->fetch();
 		$strExten = $data['telephone'];
 		echo "[DEBUG] le requete est faite";

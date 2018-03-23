@@ -8,4 +8,4 @@ Ecriture d'un script qui réinitialise le timer des techniciens tous les jours �
 Ecriture d'un script qui passe l'etat d'un technicien à "indisponible" en dehors de ses horaires de travail.
 
 
-Possibilité complémentaire / alternative: ajout d'un bouton sur la page du technicien pour qu'il modifie lui même son état de disponibilité.
+Ajouter un script js ou ajax pour modifier dynamiquement la couleur du bouton "modifier votre disponibilité" de la page index.php (ligne 139) en fonction de "etat_disponible" dans la bdd.

@@ -25,15 +25,18 @@
     </button>
 	<?php 
 	if(!empty($_SESSION["login"])){
+		//Si l'utilisateur est un client
 		if($_SESSION["rang"]==0){
 			//header('Location: client.php');
-			echo "<a class='navbar-brand' href='client.php' style='margin-left:20%;'>Interface Client</a>";
+			echo "<a class='navbar-brand' href='client.php' style='margin-left:30%;'>Interface Client</a>";
 		}
+		//Si l'utilisateur est un technicien
 		else if($_SESSION["rang"]==1){
 			//header('Location: index.php');
-			echo "<a class='navbar-brand' href='index.php' style='margin-left:20%;'>Interface Technicien</a>";
+			echo "<a class='navbar-brand' href='index.php' style='margin-left:30%;'>Interface Technicien</a>";
 		}
 	}
+	//Si l'utilisateur n'est pas enregistré
 	else{
 		echo "";
 	}
