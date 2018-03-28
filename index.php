@@ -123,20 +123,19 @@ include "include/foot.php";
 
 			//code à modifier pour la couleur du patch -> besoin de js ou ajax
 			if($old_dispo==0){
+				$old_color ="green";
 				$new_dispo=1;
-				$new_color="red";
 			}
 			if($old_dispo==1){
-
+				$old_color ="red";
 				$new_dispo=0;
-				$new_color="green";
 			}
 			
 
 
 		?>
-		<form method="post" action="index.php">
-		<button type=submit name="bouton_dispo" class="btn btn-default" style="float:left;position:absolute;top:0;left:0;color:white;background:<?php echo $new_color ?>;">Modifier votre disponibilité</button>
+		<form method="post" action="index.php"   onsubmit='setTimeout(function(){window.location.reload();},10)'>
+		<button type=submit name="bouton_dispo" class="btn btn-default" style="float:left;position:absolute;top:0;left:0;color:white;background:<?php echo $old_color ?>;">Modifier votre disponibilité</button>
 		</form>
 		<?php
 		echo $old_dispo;

@@ -1,4 +1,4 @@
-A FAIRE:
+﻿A FAIRE:
 
 Faire en sorte de pouvoir écrire dans la base de données depuis l'asterisk pour:
 - changer l'etat de disponibilité des techniciens lorsqu'il prend l'appel et lorsqu'il raccroche,
@@ -7,5 +7,3 @@ Faire en sorte de pouvoir écrire dans la base de données depuis l'asterisk pou
 Ecriture d'un script qui réinitialise le timer des techniciens tous les jours à minuit (par exemple).
 Ecriture d'un script qui passe l'etat d'un technicien à "indisponible" en dehors de ses horaires de travail.
 
-
-Ajouter un script js ou ajax pour modifier dynamiquement la couleur du bouton "modifier votre disponibilité" de la page index.php (ligne 139) en fonction de "etat_disponible" dans la bdd.

@@ -99,7 +99,7 @@ include "include/head.php";
 
 <?php
 if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
-	$strHost = "192.168.141.18";
+	$strHost = "10.0.30.22";
 	$strUser = "admin";
 	$strSecret = "secret";
 # Numéro Technicien
