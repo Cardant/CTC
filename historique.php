@@ -18,7 +18,6 @@ include "include/head.php";
 ?>
 
 <?php
-echo $_POST["id"];
 $client_ctc = 'SELECT * FROM ctc_request WHERE user_id=' . $_POST["id"] . ' AND (etat=1 or etat=2)';
 $client_ctc_request = $bdd->query($client_ctc);
 
@@ -59,8 +58,8 @@ while ($array_client_ctc_request = $client_ctc_request->fetch()) {
 				</div>
 				</div>
 				</div>
-				<div style="width:50%;margin-left:25%;">
-				<a href="index.php"><button type=button class="btn btn-primary">Revenir en arrière</button></a>
+				<div>
+				<a href="index.php"><button type=button class="btn btn-primary" style="margin-left:45%">Revenir en arrière</button></a>
 				</div>
 
 

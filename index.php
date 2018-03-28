@@ -4,6 +4,7 @@ session_start();
 require 'pdo.php';
 // Connexion à la base de données
 $bdd = new PDO('mysql:host=' . $PARAM_hote . ';dbname=' . $PARAM_nom_bd . ';charset=utf8', $PARAM_utilisateur, $PARAM_mot_passe);
+include('var.php');
 
 // Condition pour afficher la page : être technicien Sinon redirection vers la page de connexion
 if (!empty($_SESSION['login'])) {
@@ -108,7 +109,50 @@ include "include/foot.php";
 	<!-- Custom scripts for this page-->
 	<script src="js/sb-admin-datatables.min.js"></script>
 	<script src="js/sb-admin-charts.min.js"></script>
-  </div>
+	</div>
+	<div class="row">
+		<div class="col-md-5">
+		</div>
+		<div class="col-md-2">
+		
+		<?php	
+			$old_dispo_requete = 'SELECT * FROM worktime WHERE id_technicien="'.$_SESSION["id"].'"';
+			$old_dispo_intab = $bdd->query($old_dispo_requete);
+			$tech_info = $old_dispo_intab->fetch();
+			$old_dispo = $tech_info['etat_disponible'];
+
+			//code à modifier pour la couleur du patch -> besoin de js ou ajax
+			if($old_dispo==0){
+				$new_dispo=1;
+				$new_color="red";
+			}
+			if($old_dispo==1){
+
+				$new_dispo=0;
+				$new_color="green";
+			}
+			
+
+
+		?>
+		<form method="post" action="index.php">
+		<button type=submit name="bouton_dispo" class="btn btn-default" style="float:left;position:absolute;top:0;left:0;color:white;background:<?php echo $new_color ?>;">Modifier votre disponibilité</button>
+		</form>
+		<?php
+		echo $old_dispo;
+			if (isset($_POST['bouton_dispo'])) { // si le bouton "bouton_dispo" est appuyé
+				
+				$insert = $bdd->prepare('UPDATE worktime SET etat_disponible=:new_dispo WHERE id_technicien=:id_tech');
+				$insert->bindParam(':new_dispo', $new_dispo);
+				$insert->bindParam(':id_tech', $_SESSION["id"]);
+				$insert->execute();
+			}
+		?>
+		</div>
+		<div class="col-md-5">
+		</div>
+	</div>
+
 </body>
 
 </html>
