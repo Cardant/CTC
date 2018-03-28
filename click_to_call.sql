@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Ven 23 Mars 2018 à 13:51
+-- Généré le :  Mer 28 Mars 2018 à 07:11
 -- Version du serveur :  5.7.11
--- Version de PHP :  5.6.18
+-- Version de PHP :  7.0.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -42,7 +42,7 @@ INSERT INTO `ctc_request` (`id`, `user_id`, `dates`, `etat`, `Commentaire`) VALU
 (15, 3, '31/01/2018 - 09:27:29', 2, 'Problème au niveau de la conf de la box'),
 (16, 3, '31/01/2018 - 09:29:57', 2, 'Le dépannage a été réalisé sans problème.'),
 (52, 3, '07/02/2018 - 07:28:40', 0, NULL),
-(53, 0, '07/02/2018 - 08:36:07', 1, NULL);
+(53, 1, '07/02/2018 - 08:36:07', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -88,6 +88,14 @@ CREATE TABLE `worktime` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
+-- Contenu de la table `worktime`
+--
+
+INSERT INTO `worktime` (`id`, `id_technicien`, `nom_technicien`, `prenom_technicien`, `timer`, `etat_disponible`) VALUES
+(1, 2, 'tech', 'tech', NULL, 1),
+(2, 4, 'technicien2', 'technicien2', NULL, NULL);
+
+--
 -- Index pour les tables exportées
 --
 
@@ -129,7 +137,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT pour la table `worktime`
 --
 ALTER TABLE `worktime`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- Contraintes pour les tables exportées
 --
