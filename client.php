@@ -1,11 +1,16 @@
 <?php
 require 'pdo.php';
 $bdd = new PDO('mysql:host=' . $PARAM_hote . ';dbname=' . $PARAM_nom_bd . ';charset=utf8', $PARAM_utilisateur, $PARAM_mot_passe);
-
 session_start();
 
-if ($_SESSION["rang"] == 1) {
-	header('Location: index.php');
+// Condition pour afficher la page : être client Sinon redirection vers la page de connexion
+if (!empty($_SESSION['login'])) {
+
+	if ($_SESSION["rang"] == 1) {
+		header('Location: index.php');
+	}
+} else {
+	header('Location: login.php');
 }
 
 include "include/head.php";
@@ -98,8 +103,12 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	$strUser = "admin";
 	$strSecret = "secret";
 # Numéro Technicien
-
-	$strChannel = "SIP/11";
+#etat_disponible = 0 <=> disponbile / etat_disponible = 1 <=> indisponible
+	$numero = $bdd->prepare('SELECT * FROM `worktime` WHERE etat_disponible = 0 ORDER BY timer LIMIT 1');
+	$numero->execute();
+	$numero_technicien = $numero->fetch();
+	$technicien = $numero_technicien['telephone'];
+	$strChannel = "SIP/$technicien";
 	$strContext = "base";
 	$strWaitTime = "30";
 	$strPriority = "1";
@@ -150,7 +159,6 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	$dates = strftime('%d/%m/%Y - %H:%M:%S');
 	//date('l jS \of F Y h:i:s A');
 	$etat = 0;
-
 	$insert = $bdd->prepare('INSERT INTO `ctc_request`(`user_id`, `dates`, `etat`) VALUES (:user_id, :dates, :etat)');
 	$insert->bindParam(':user_id', $_SESSION["id"]);
 	$insert->bindParam(':dates', $dates);

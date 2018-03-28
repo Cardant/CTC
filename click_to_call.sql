@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
--- https://www.phpmyadmin.net/
+-- version 4.5.4.1
+-- http://www.phpmyadmin.net
 --
--- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 07 fév. 2018 à 10:59
--- Version du serveur :  5.7.19
--- Version de PHP :  5.6.31
+-- Client :  localhost
+-- Généré le :  Ven 23 Mars 2018 à 13:51
+-- Version du serveur :  5.7.11
+-- Version de PHP :  5.6.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -28,25 +26,23 @@ SET time_zone = "+00:00";
 -- Structure de la table `ctc_request`
 --
 
-DROP TABLE IF EXISTS `ctc_request`;
-CREATE TABLE IF NOT EXISTS `ctc_request` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
-  `user_id` int(20) NOT NULL,
+CREATE TABLE `ctc_request` (
+  `id` int(10) NOT NULL,
+  `user_id` int(5) NOT NULL,
   `dates` varchar(50) NOT NULL,
   `etat` int(2) NOT NULL,
-  `Commentaire` text,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=54 DEFAULT CHARSET=utf8;
+  `Commentaire` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `ctc_request`
+-- Contenu de la table `ctc_request`
 --
 
 INSERT INTO `ctc_request` (`id`, `user_id`, `dates`, `etat`, `Commentaire`) VALUES
 (15, 3, '31/01/2018 - 09:27:29', 2, 'Problème au niveau de la conf de la box'),
 (16, 3, '31/01/2018 - 09:29:57', 2, 'Le dépannage a été réalisé sans problème.'),
-(53, 1, '07/02/2018 - 08:36:07', 0, NULL),
-(52, 3, '07/02/2018 - 07:28:40', 0, NULL);
+(52, 3, '07/02/2018 - 07:28:40', 0, NULL),
+(53, 0, '07/02/2018 - 08:36:07', 1, NULL);
 
 -- --------------------------------------------------------
 
@@ -54,9 +50,8 @@ INSERT INTO `ctc_request` (`id`, `user_id`, `dates`, `etat`, `Commentaire`) VALU
 -- Structure de la table `users`
 --
 
-DROP TABLE IF EXISTS `users`;
-CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(10) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `users` (
+  `id` int(10) NOT NULL,
   `login` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `nom` varchar(50) NOT NULL,
@@ -64,19 +59,86 @@ CREATE TABLE IF NOT EXISTS `users` (
   `mail` varchar(50) NOT NULL,
   `telephone` varchar(15) NOT NULL,
   `rang` int(1) NOT NULL DEFAULT '0',
-  `disponible` int(1) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+  `disponible` int(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Déchargement des données de la table `users`
+-- Contenu de la table `users`
 --
 
 INSERT INTO `users` (`id`, `login`, `password`, `nom`, `prenom`, `mail`, `telephone`, `rang`, `disponible`) VALUES
 (1, 'client', 'cb2f30af04a929457b1b14a3319dab0c5e0e811a', 'nomclient', 'prenomclient', 'mailclient@client.fr', '102030405', 0, NULL),
 (2, 'technicien', '86cdf77364e5a43aa8d89a9bd17869e1c24f13f4', 'tech', 'tech', 'tech@tech.tech', '5801', 1, 1),
-(3, 'client2', '0cf3a452af4baf920c5e381be5f542007639a275', 'client2', 'client2', 'client2', '5802', 0, NULL);
-COMMIT;
+(3, 'client2', '0cf3a452af4baf920c5e381be5f542007639a275', 'client2', 'client2', 'client2', '5802', 0, NULL),
+(4, 'technicien2', 'technicien2', 'technicien2', 'technicien2', 'technicien2@tech.com', '5803', 1, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `worktime`
+--
+
+CREATE TABLE `worktime` (
+  `id` int(10) NOT NULL,
+  `id_technicien` int(10) NOT NULL,
+  `nom_technicien` text NOT NULL,
+  `prenom_technicien` text NOT NULL,
+  `timer` int(10) DEFAULT NULL,
+  `etat_disponible` int(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Index pour les tables exportées
+--
+
+--
+-- Index pour la table `ctc_request`
+--
+ALTER TABLE `ctc_request`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_user_id` (`user_id`);
+
+--
+-- Index pour la table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Index pour la table `worktime`
+--
+ALTER TABLE `worktime`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_id_technicien` (`id_technicien`);
+
+--
+-- AUTO_INCREMENT pour les tables exportées
+--
+
+--
+-- AUTO_INCREMENT pour la table `ctc_request`
+--
+ALTER TABLE `ctc_request`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+--
+-- AUTO_INCREMENT pour la table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT pour la table `worktime`
+--
+ALTER TABLE `worktime`
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT;
+--
+-- Contraintes pour les tables exportées
+--
+
+--
+-- Contraintes pour la table `worktime`
+--
+ALTER TABLE `worktime`
+  ADD CONSTRAINT `fk_id_technicien` FOREIGN KEY (`id_technicien`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
