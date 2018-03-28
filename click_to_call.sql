@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mer 28 Mars 2018 à 07:11
+-- Généré le :  Mer 28 Mars 2018 à 09:23
 -- Version du serveur :  5.7.11
 -- Version de PHP :  7.0.3
 
@@ -42,7 +42,8 @@ INSERT INTO `ctc_request` (`id`, `user_id`, `dates`, `etat`, `Commentaire`) VALU
 (15, 3, '31/01/2018 - 09:27:29', 2, 'Problème au niveau de la conf de la box'),
 (16, 3, '31/01/2018 - 09:29:57', 2, 'Le dépannage a été réalisé sans problème.'),
 (52, 3, '07/02/2018 - 07:28:40', 0, NULL),
-(53, 1, '07/02/2018 - 08:36:07', 1, NULL);
+(53, 1, '07/02/2018 - 08:36:07', 1, NULL),
+(54, 3, '28/03/2018 - 08:39:47', 0, NULL);
 
 -- --------------------------------------------------------
 
@@ -58,19 +59,20 @@ CREATE TABLE `users` (
   `prenom` varchar(50) NOT NULL,
   `mail` varchar(50) NOT NULL,
   `telephone` varchar(15) NOT NULL,
-  `rang` int(1) NOT NULL DEFAULT '0',
-  `disponible` int(1) DEFAULT NULL
+  `rang` int(1) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `users`
 --
 
-INSERT INTO `users` (`id`, `login`, `password`, `nom`, `prenom`, `mail`, `telephone`, `rang`, `disponible`) VALUES
-(1, 'client', 'cb2f30af04a929457b1b14a3319dab0c5e0e811a', 'nomclient', 'prenomclient', 'mailclient@client.fr', '102030405', 0, NULL),
-(2, 'technicien', '86cdf77364e5a43aa8d89a9bd17869e1c24f13f4', 'tech', 'tech', 'tech@tech.tech', '5801', 1, 1),
-(3, 'client2', '0cf3a452af4baf920c5e381be5f542007639a275', 'client2', 'client2', 'client2', '5802', 0, NULL),
-(4, 'technicien2', 'technicien2', 'technicien2', 'technicien2', 'technicien2@tech.com', '5803', 1, 1);
+INSERT INTO `users` (`id`, `login`, `password`, `nom`, `prenom`, `mail`, `telephone`, `rang`) VALUES
+(1, 'client', 'cb2f30af04a929457b1b14a3319dab0c5e0e811a', 'nomclient', 'prenomclient', 'mailclient@client.fr', '102030405', 0),
+(2, 'technicien', '86cdf77364e5a43aa8d89a9bd17869e1c24f13f4', 'tech', 'tech', 'tech@tech.tech', '5801', 1),
+(3, 'client2', '0cf3a452af4baf920c5e381be5f542007639a275', 'client2', 'client2', 'client2', '5802', 0),
+(4, 'technicien2', 'technicien2', 'technicien2', 'technicien2', 'technicien2@tech.com', '5803', 1),
+(5, 'technicien3', 'technicien3', 'technicien3', 'technicien3', 'technicien3', '5805', 1),
+(6, 'technicien4', 'technicien4', 'technicien4', 'technicien4', 'technicien4', '5806', 1);
 
 -- --------------------------------------------------------
 
@@ -83,8 +85,8 @@ CREATE TABLE `worktime` (
   `id_technicien` int(10) NOT NULL,
   `nom_technicien` text NOT NULL,
   `prenom_technicien` text NOT NULL,
-  `timer` int(10) DEFAULT NULL,
-  `etat_disponible` int(2) DEFAULT NULL
+  `timer` int(10) DEFAULT '0',
+  `etat_disponible` int(2) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -92,8 +94,10 @@ CREATE TABLE `worktime` (
 --
 
 INSERT INTO `worktime` (`id`, `id_technicien`, `nom_technicien`, `prenom_technicien`, `timer`, `etat_disponible`) VALUES
-(1, 2, 'tech', 'tech', NULL, 1),
-(2, 4, 'technicien2', 'technicien2', NULL, NULL);
+(1, 2, 'tech', 'tech', 500, 1),
+(2, 4, 'technicien2', 'technicien2', 350, 1),
+(3, 5, 'technicien3', 'technicien3', 150, 1),
+(4, 6, 'technicien4', 'technicien4', 0, 1);
 
 --
 -- Index pour les tables exportées
@@ -127,17 +131,17 @@ ALTER TABLE `worktime`
 -- AUTO_INCREMENT pour la table `ctc_request`
 --
 ALTER TABLE `ctc_request`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 --
 -- AUTO_INCREMENT pour la table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT pour la table `worktime`
 --
 ALTER TABLE `worktime`
-  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 --
 -- Contraintes pour les tables exportées
 --
