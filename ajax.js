@@ -5,7 +5,7 @@ $("#client").submit(function(e) {
     $.ajax({
            type: "POST",
            url: url,
-           data: $("#clienrt").serialize(), // serializes the form's elements.
+           data: $("#client").serialize(), // serializes the form's elements.
            success: function(data)
            {
                alert(data); // show response from the php script.
