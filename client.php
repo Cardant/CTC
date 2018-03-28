@@ -102,9 +102,9 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	$strHost = "10.0.30.22";
 	$strUser = "admin";
 	$strSecret = "secret";
-# Numéro Technicien
-#etat_disponible = 0 <=> disponbile / etat_disponible = 1 <=> indisponible
-	$numero = $bdd->prepare('SELECT * FROM `worktime` WHERE etat_disponible = 0 ORDER BY timer LIMIT 1');
+	# Numéro Technicien
+	#etat_disponible = 0 <=> disponbile / etat_disponible = 1 <=> indisponible
+	$numero = $bdd->prepare('SELECT * FROM worktime JOIN users on worktime.id=users.id WHERE etat_disponible = 0 ORDER BY timer LIMIT 1 ');
 	$numero->execute();
 	$numero_technicien = $numero->fetch();
 	$technicien = $numero_technicien['telephone'];
@@ -113,7 +113,7 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	$strWaitTime = "30";
 	$strPriority = "1";
 	$strMaxRetry = "2";
-# Numéro à appeler
+	# Numéro à appeler
 	if (isset($_POST["numero"])) {
 		echo "[DEBUG] la case est coché";
 		$query = $bdd->prepare('SELECT * FROM users WHERE id ="' . $_SESSION["id"] . '"');
