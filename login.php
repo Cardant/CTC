@@ -76,7 +76,7 @@ if($logOk =='ok'){
 		 header('Location: index.php');
 	}
 }
-else{
+else {
   header('Location: index.php');
 }
 }

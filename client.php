@@ -45,7 +45,7 @@ include "include/head.php";
 					<div class="modal-body">
 							<?php
 						echo "
-							<form id ='client' method='post' action='client.php'>
+							<form id ='client' method='post' action='client.php' onsubmit='setTimeout(function(){window.location.reload();},10)'>
 							<div style='width:100%;text-align:center;'>
 							<label for='nom' style='font-weight:bold;'>Nom</label><br>
 							<input name='nom' id='nom' style='text-align:center;' value='" . $_SESSION["nom"] . "'></input><br>
@@ -173,14 +173,13 @@ if (isset($_POST["enregistrer"])) { // si le bouton "enregistrer" est appuyé
 		echo "Un champ est incomplet";
 	} else {
 		$Login = $_SESSION["login"];
-
 		$con = mysqli_connect("$PARAM_hote", "$PARAM_utilisateur", "$PARAM_mot_passe", "$PARAM_nom_bd");
-// Check connection
+		// Check connection
 		if (mysqli_connect_errno()) {
 			echo "Failed to connect to MySQL: " . mysqli_connect_error();
 		}
 
-// Perform queries
+		// Perform queries
 		mysqli_query($con, 'UPDATE users SET nom="' . $_POST['nom'] . '", prenom="' . $_POST['prenom'] . '", mail="' . $_POST['mail'] . '",telephone=' . $_POST['telephone'] . ' WHERE login="' . $Login . '"');
 		$_SESSION['mail'] = $_POST['mail'];
 		$_SESSION['nom'] = $_POST['nom'];
@@ -206,7 +205,6 @@ include "include/foot.php";
 		<!-- Custom scripts for this page-->
 		<script src="js/sb-admin-datatables.min.js"></script>
 		<!-- <script src="js/sb-admin-charts.min.js"></script> -->
-		<script src="ajax.js"></script>
 		
 </body>
 
