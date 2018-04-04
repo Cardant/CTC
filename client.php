@@ -109,7 +109,7 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	$numero_technicien = $numero->fetch();
 	$technicien = $numero_technicien['telephone'];
 	$strChannel = "SIP/$technicien";
-	$strContext = "base";
+	$strContext = "orig";
 	$strWaitTime = "30";
 	$strPriority = "1";
 	$strMaxRetry = "2";

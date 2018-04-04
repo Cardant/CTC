@@ -49,7 +49,11 @@ while ($array_client_ctc_request = $client_ctc_request->fetch()) {
 						<td><?php echo $array_client_ctc_request["id"] ?></td>
 						<td><?php echo $array_client_ctc_request["user_id"] ?></td>
 						<td><?php echo $array_client_ctc_request["dates"] ?></td>
-						<td><?php echo $array_client_ctc_request["etat"] ?></td>
+						<td><?php if($array_client_ctc_request["etat"]==1){
+									echo "En cours";
+						}elseif($array_client_ctc_request["etat"]==2){
+							echo "Terminée";
+						} ?></td>
 						<td><?php echo $array_client_ctc_request["Commentaire"] ?></td>
 						</tr>
 						</tbody>
