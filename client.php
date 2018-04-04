@@ -121,13 +121,19 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 		print_r($query->errorInfo());
 		$data = $query->fetch();
 		$strExten = $data['telephone'];
+
 		echo "[DEBUG] le requete est faite";
 
 	} else if (isset($_POST['txtphonenumber'])) {
+		$strExten = $_POST['txtphonenumber'];
+
 		echo "[DEBUG] le numero est entré manuellement";
 
-		$strExten = $_POST['txtphonenumber'];
+
 	}
+	echo "[DEBUG] numero du client : $strExten";
+	echo "[DEBUG] numero du technicien : $technicien";
+
 	$strCallerId = "Web Call $strExten";
 	$length = strlen($strExten);
 
