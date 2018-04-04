@@ -38,6 +38,7 @@ echo "<div class='card mb-3'>
 				  <th>Telephone</th>
 				  <th>Date</th>
 				  <th>Avancement</th>
+				  <th>Mettre à jour</th>
 				  <th>Historique</th>
 
 				</tr>
@@ -72,11 +73,13 @@ while ($row = $req->fetch()) {
     } else {
         echo 'Terminé';}?></td>
 				<td>
-				<form method="post" action="historique.php">
-				<input name="id" type="hidden" value="<?php echo $line['id'] ?>"></input>
-				<button type="submit"><i class="fa fa-file" aria-hidden="true"></i></button>
-
-				</form>
+				<input name="value_id" type="hidden" value="<?php echo $row['id'] ?>"></input>
+				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#maj" onclick="id_request(<?php echo $row['id']?>)">Update</button></td>				
+				<td>
+					<form method="post" action="historique.php">
+						<input name="id" type="hidden" value="<?php echo $line['id'] ?>"></input>
+						<button type="submit"><i class="fa fa-file" aria-hidden="true"></i></button>
+					</form>
 				</td>
 			  </tr>
 			  <?php }?>
@@ -86,8 +89,50 @@ while ($row = $req->fetch()) {
 		</div>
 	  </div>
 
+<div class="modal fade" id="maj" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Mise à jour</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body" style="text-align:center;">
+					<form method="post" action="index.php">
+					
+					<label for="state">Etat de la requête :</label><br>
+					<select id="state" name="state">
+					<option name="attente">En attente</option>
+					<option name="cours">En cours</option>
+					<option name="terminee">Terminée</option>
+					</select><br>
+					<label for="commentaire">Commentaire :</label><br>
+					<textarea id="commentaire"name="commentaire" rows="3" col="10">
+					</textarea><br>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button>
 
+					<button type="submit" name="maj" class="btn btn-primary">Valider</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
+<?php 
+$Login = $_SESSION["login"];
+$insert = $bdd->prepare('UPDATE `ctc_request` SET(`etat`,`commentaire`) VALUES (:etat, :commentaire) WHERE ');
+$insert->bindParam(':user_id', $_SESSION["id"]);
+$insert->bindParam(':dates', $dates);
+$insert->bindParam(':etat', $etat);
+$insert->execute();
+	if(isset($_POST["maj"])){
+
+	}
+?>
 	<!-- /.container-fluid-->
 	<!-- /.content-wrapper-->
 
@@ -95,20 +140,7 @@ while ($row = $req->fetch()) {
 include "include/foot.php";
 ?>
 
-	<!-- Bootstrap core JavaScript-->
-	<script src="vendor/jquery/jquery.min.js"></script>
-	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<!-- Core plugin JavaScript-->
-	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-	<!-- Page level plugin JavaScript-->
-	<script src="vendor/chart.js/Chart.min.js"></script>
-	<script src="vendor/datatables/jquery.dataTables.js"></script>
-	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
-	<!-- Custom scripts for all pages-->
-	<script src="js/sb-admin.min.js"></script>
-	<!-- Custom scripts for this page-->
-	<script src="js/sb-admin-datatables.min.js"></script>
-	<script src="js/sb-admin-charts.min.js"></script>
+	
 	</div>
 	<div class="row">
 		<div class="col-md-5">
@@ -151,7 +183,26 @@ include "include/foot.php";
 		<div class="col-md-5">
 		</div>
 	</div>
-
+<!-- Bootstrap core JavaScript-->
+<script src="vendor/jquery/jquery.min.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<!-- Core plugin JavaScript-->
+	<script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+	<!-- Page level plugin JavaScript-->
+	<script src="vendor/chart.js/Chart.min.js"></script>
+	<script src="vendor/datatables/jquery.dataTables.js"></script>
+	<script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+	<!-- Custom scripts for all pages-->
+	<script src="js/sb-admin.min.js"></script>
+	<!-- Custom scripts for this page-->
+	<script src="js/sb-admin-datatables.min.js"></script>
+	<script src="js/sb-admin-charts.min.js"></script>
+	<script>
+	var id_rqst = 0;
+	function id_request(newValue){
+		id_rqst = newValue;
+	}
+	</script>
 </body>
 
 </html>

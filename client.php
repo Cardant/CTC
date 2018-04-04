@@ -70,31 +70,31 @@ include "include/head.php";
 		</div>
 
 			<!-- Modal d'appel -->
- <div class="modal fade" id="appel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="exampleModalLabel">Appel de dépannage</h5>
-						<button class="close" type="button" data-dismiss="modal" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</button>
-					</div>
-					<div class="modal-body">
-						<form method="post" action="client.php">
-						<input type="checkbox" name="numero" value="numero">  Je veux être appelé sur mon numéro enregistré<br><br>
-						<label id="new_num">Je veux être appelé sur un autre numéro:</label>
-						<input id="new_num" type="text" size="20" maxlength="11" name="txtphonenumber"><br>
-					</div>
-					 <div class="modal-footer">
-						 <button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button>
+<div class="modal fade" id="appel" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Appel de dépannage</h5>
+					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form method="post" action="client.php">
+					<input type="checkbox" name="numero" value="numero">  Je veux être appelé sur mon numéro enregistré<br><br>
+					<label id="new_num">Je veux être appelé sur un autre numéro:</label>
+					<input id="new_num" type="text" size="20" maxlength="11" name="txtphonenumber"><br>
+				</div>
+				<div class="modal-footer">
+					<button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button>
 
-						 <button type="submit" name="envoie" class="btn btn-primary">Lancer la requête d'appel</button>
-						 </form>
-					</div>
-					</div>
+					<button type="submit" name="envoie" class="btn btn-primary">Lancer la requête d'appel</button>
+					</form>
 				</div>
 			</div>
 		</div>
+	</div>
+</div>
 
 
 <?php
@@ -127,12 +127,12 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	} else if (isset($_POST['txtphonenumber'])) {
 		$strExten = $_POST['txtphonenumber'];
 
-		echo "[DEBUG] le numero est entré manuellement";
+		echo "[DEBUG] le numero est entré manuellement \n";
 
 
 	}
-	echo "[DEBUG] numero du client : $strExten";
-	echo "[DEBUG] numero du technicien : $technicien";
+	echo "[DEBUG] numero du client : $strExten \n";
+	echo "[DEBUG] numero du technicien : $technicien \n";
 
 	$strCallerId = "Web Call $strExten";
 	$length = strlen($strExten);
