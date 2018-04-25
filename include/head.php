@@ -19,7 +19,7 @@
   
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="index.php">SOLEA</a>
+    <a class="navbar-brand" href="technicien.php">SOLEA</a>
     <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -32,13 +32,13 @@
 		}
 		//Si l'utilisateur est un technicien
 		else if($_SESSION["rang"]==1){
-			//header('Location: index.php');
-			echo "<a class='navbar-brand' href='index.php' style='margin-left:30%;'>Interface Technicien</a>";
+			//header('Location: technicien.php');
+			echo "<a class='navbar-brand' href='technicien.php' style='margin-left:30%;'>Interface Technicien</a>";
 		}
 	}
 	//Si l'utilisateur n'est pas enregistré
 	else{
-		echo "";
+		echo "<a class='navbar-brand' href='technicien.php' style='margin-left:30%;'>BIENVENUE</a>";
 	}
 		?>
 	
@@ -49,8 +49,11 @@
             <li class="nav-item">
 			<?php
 			if(!empty($_SESSION['login'])){
-				 echo"<form method='post'><button class='btn btn-light btn-block' name='deconnexion'>Logout</button></form>";
+				 echo"<form method='post'><button class='btn btn-light btn-block' name='deconnexion'><i class='fa fa-sign-out' aria-hidden='true'></i> Logout</button></form>";
+				 }else{
+					echo"<a href='login.php'><button class='btn btn-light btn-block' name='connexion'><i class='fa fa-sign-in' aria-hidden='true'></i> Login</button></a>";
 				 }
+				 
 			?>
         </li>
       </ul>

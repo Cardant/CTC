@@ -7,10 +7,10 @@ session_start();
 if (!empty($_SESSION['login'])) {
 
 	if ($_SESSION["rang"] == 1) {
-		header('Location: index.php');
+		header('Location: technicien.php');
 	}
 } else {
-	header('Location: login.php');
+	header('Location: index.php');
 }
 
 include "include/head.php";

@@ -24,11 +24,9 @@ echo"<body class='bg-dark'>
             <label for='exampleInputPassword1'>Password</label>
             <input class='form-control' name='password' id='exampleInputPassword1' type='password' placeholder='Password'>
           </div>
-          <button class='btn btn-dark btn-block' name='connexion'>Login</button>
+          <button class='btn btn-dark btn-block' name='connexion'>Login</button><br>
         </form>
-        <!--<div class='text-center'>
-          <a class='d-block small' href='forgot-password.html'>Forgot Password?</a>
-        </div>-->
+          <a href='index.php'style='text-decoration:none'><button type='button' class='btn btn-dark btn-block'>Retourner à l'accueil</button></a>
       </div>
 </div>";}
 if(isset($_POST['connexion'])) { // si le bouton "Connexion" est appuyé
@@ -73,11 +71,11 @@ if($logOk =='ok'){
 		  header('Location: client.php');  
 }
 	else if($_SESSION['rang']==1){
-		 header('Location: index.php');
+		 header('Location: technicien.php');
 	}
 }
 else {
-  header('Location: index.php');
+  header('Location: technicien.php');
 }
 }
 ?>
