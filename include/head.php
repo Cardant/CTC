@@ -15,50 +15,44 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
 </head>
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
-  
+<body class='bg-dark'> 
   <!-- Navigation-->
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
-    <a class="navbar-brand" href="technicien.php">SOLEA</a>
-    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
+	<div class="row" style="margin-bottom:1%;">
+    <div class="col-md-4" style="text-align:center;">
+        <a class="navbar-brand" href="technicien.php" style="text-decoration:none;color:white;font-weight:bold;vertical-align:">SOLEA</a>
+    </div>
 	<?php 
 	if(!empty($_SESSION["login"])){
 		//Si l'utilisateur est un client
 		if($_SESSION["rang"]==0){
 			//header('Location: client.php');
-			echo "<a class='navbar-brand' href='client.php' style='margin-left:30%;'>Interface Client</a>";
+			echo "<div class='col-md-4' style='text-align:center;'><a class='navbar-brand' href='client.php' style='text-decoration:none;color:white;'>Interface Client</a></div>";
 		}
 		//Si l'utilisateur est un technicien
 		else if($_SESSION["rang"]==1){
 			//header('Location: technicien.php');
-			echo "<a class='navbar-brand' href='technicien.php' style='margin-left:30%;'>Interface Technicien</a>";
+			echo "<div class='col-md-4' style='text-align:center;'><a class='navbar-brand' href='technicien.php' style='text-decoration:none;color:white;'>Interface Technicien</a></div>";
 		}
 	}
 	//Si l'utilisateur n'est pas enregistré
 	else{
-		echo "<a class='navbar-brand' href='technicien.php' style='margin-left:30%;'>BIENVENUE</a>";
+		echo "<div class='col-md-4' style='text-align:center;'><a class='navbar-brand' href='index.php' style='text-decoration:none;color:white;'>BIENVENUE</a></div>";
 	}
 		?>
 	
             
-
-    <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+            <div class="col-md-4" style='text-align:center;'>
 			<?php
 			if(!empty($_SESSION['login'])){
-				 echo"<form method='post'><button class='btn btn-light btn-block' name='deconnexion'><i class='fa fa-sign-out' aria-hidden='true'></i> Logout</button></form>";
+				 echo"<form method='post'><button class='btn btn-light ' name='deconnexion' style='margin-top:1%;><i class='fa fa-sign-out' aria-hidden='true'></i> Logout</button></form>";
 				 }else{
-					echo"<a href='login.php'><button class='btn btn-light btn-block' name='connexion'><i class='fa fa-sign-in' aria-hidden='true'></i> Login</button></a>";
+					echo"<a href='login.php' style='text-decoration:none'><button class='btn btn-light' name='connexion' style='margin-top:1%;'><i class='fa fa-sign-in' aria-hidden='true'></i> Login</button></a>";
 				 }
 				 
 			?>
-        </li>
-      </ul>
+            </div>
+        </div>
     </div>
-  </nav>
 <?php 
 if(isset($_POST['deconnexion'])) { // si le bouton "Connexion" est appuyé
 	 

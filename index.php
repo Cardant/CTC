@@ -18,8 +18,7 @@ include "include/head.php";
 Solea est un acteur historique dans le domaine de l’énergie autonome et des économies d’énergie. Nos experts conçoivent, installent et maintiennent des solutions techniques afin de répondre aux besoins croissants du marché mondial. Nous disposons d’un centre de formation agréé afin d’accompagner nos clients dans la réalisation de leurs projets. Nous intervenons depuis 2003 sur les marchés du site isolé (off-grid), de l’aménagement urbain, des applications industrielles autonomes, de la mobilité Energie et de la supervision (monitoring) Energies des installations individuelles et collectives.</p>
 </div>
 <div class="col-md-6">
-
-  <img src="image/panneau-solaire.jpg" class="img-thumbnail" alt="img-thumbnail" width=600 height=400>
+<img src="image/panneau-solaire.jpg" class="img-thumbnail" alt="img-thumbnail" width=600 height=400>
 </div>
 </div>
 

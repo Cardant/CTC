@@ -10,7 +10,7 @@ $logOk='';
 
 if(!isset($_POST['connexion'])) {
 
-echo"<body class='bg-dark'>
+echo"
   <div class='container'>
     <div class='card card-login mx-auto mt-5'>
       <div class='card-header'>Connexion</div>
