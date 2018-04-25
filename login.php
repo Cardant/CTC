@@ -24,7 +24,7 @@ echo"<body class='bg-dark'>
             <label for='exampleInputPassword1'>Password</label>
             <input class='form-control' name='password' id='exampleInputPassword1' type='password' placeholder='Password'>
           </div>
-          <button class='btn btn-primary btn-block' name='connexion'>Login</button>
+          <button class='btn btn-dark btn-block' name='connexion'>Login</button>
         </form>
         <!--<div class='text-center'>
           <a class='d-block small' href='forgot-password.html'>Forgot Password?</a>

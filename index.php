@@ -32,14 +32,14 @@ echo "<div class='card mb-3'>
 			<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'  style='text-align:center;'>
 			  <thead>
 				<tr>
-				  <th>Nom</th>
-				  <th>Prenom</th>
-				  <th>Mail</th>
-				  <th>Telephone</th>
-				  <th>Date</th>
-				  <th>Avancement</th>
-				  <th>Mettre à jour</th>
-				  <th>Historique</th>
+				    <th>Nom</th>
+				    <th>Prenom</th>
+				    <th>Mail</th>
+				    <th>Telephone</th>
+				    <th>Date</th>
+				    <th>Avancement</th>
+				    <th>Mettre à jour</th>
+				    <th>Historique</th>
 
 				</tr>
 			  </thead>
@@ -48,10 +48,9 @@ echo "<div class='card mb-3'>
 //Requete PHP pour récupérer toute la table ctc_request
 $requete = 'SELECT * FROM ctc_request WHERE etat=0 or etat=1';
 $req = $bdd->query($requete);
-
 // boucle pour afficher toutes les lignes de la table ctc_request
-$array_id = array();
 while ($row = $req->fetch()) {
+
     $user = 'SELECT * FROM users WHERE id="' . $row["user_id"] . '"';
     $userboard = $bdd->query($user);
     $line = $userboard->fetch();
@@ -60,11 +59,26 @@ while ($row = $req->fetch()) {
     $id_client = $bdd->query($getId);
     $id = $id_client->fetch();*/
     ?>
-	<td><?php echo $line['nom'] ?></td>
+	<td><?php echo $line['nom']; ?></td>
 	<td><?php echo $line['prenom'] ?></td>
 	<td><?php echo $line['mail'] ?></td>
 	<td><?php echo $line['telephone'] ?></td>
 	<td><?php echo $row['dates'] ?></td>
+	<?php 
+		$rowdate= $row['dates'];
+
+			if(isset($_POST["maj"])){
+				echo $_POST["state"];
+				echo $_POST["commentaire"];
+				echo $_POST["value_id"];
+
+				$insert = $bdd->prepare('UPDATE `ctc_request` SET etat=:etat, commentaire=:commentaire WHERE id=:id_rqst2');
+				$insert->bindParam(':commentaire', $_POST["commentaire"]);
+				$insert->bindParam(':etat', $_POST["state"]);
+				$insert->bindParam(':id_rqst2', $_POST["value_id"]);
+				$insert->execute();
+			}
+	?>
 	<td><?php
 	if ($row['etat'] == 0) {
         echo 'En attente';
@@ -73,8 +87,8 @@ while ($row = $req->fetch()) {
     } else {
         echo 'Terminé';}?></td>
 				<td>
-				<input name="value_id" type="hidden" value="<?php echo $row['id'] ?>"></input>
-				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#maj" onclick="id_request(<?php echo $row['id']?>)">Update</button></td>				
+				
+				<button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#maj" onclick="id_request(<?php echo $row['id']?>)">Update</button></td>				
 				<td>
 					<form method="post" action="historique.php">
 						<input name="id" type="hidden" value="<?php echo $line['id'] ?>"></input>
@@ -82,7 +96,7 @@ while ($row = $req->fetch()) {
 					</form>
 				</td>
 			  </tr>
-			  <?php }?>
+			  <?php } ?>
 			  </tbody>
 			</table>
 		  </div>
@@ -93,22 +107,23 @@ while ($row = $req->fetch()) {
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="exampleModalLabel">Mise à jour</h5>
+					<h5 class="modal-title" id="exampleModalLabel">Mettre à jour</h5>
 					<button class="close" type="button" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
 				</div>
 				<div class="modal-body" style="text-align:center;">
 					<form method="post" action="index.php">
-					
+					<label for="value_id_hidden">ID de la requête :</label><br>
+					<input name="value_id" class="form-control" id="value_id_hidden" value="0" disabled="disabled" style="text-align:center;"></input><br>
 					<label for="state">Etat de la requête :</label><br>
-					<select id="state" name="state">
-					<option name="attente">En attente</option>
-					<option name="cours">En cours</option>
-					<option name="terminee">Terminée</option>
+					<select class="form-control" id="state" name="state">
+					<option name="attente" value="0">En attente</option>
+					<option name="cours" value="1">En cours</option>
+					<option name="terminee" value="2">Terminée</option>
 					</select><br>
 					<label for="commentaire">Commentaire :</label><br>
-					<textarea id="commentaire"name="commentaire" rows="3" col="10">
+					<textarea class="form-control" id="commentaire"name="commentaire" rows="3" col="10">
 					</textarea><br>
 				</div>
 				<div class="modal-footer">
@@ -122,17 +137,7 @@ while ($row = $req->fetch()) {
 	</div>
 </div>
 
-<?php 
-$Login = $_SESSION["login"];
-$insert = $bdd->prepare('UPDATE `ctc_request` SET(`etat`,`commentaire`) VALUES (:etat, :commentaire) WHERE ');
-$insert->bindParam(':user_id', $_SESSION["id"]);
-$insert->bindParam(':dates', $dates);
-$insert->bindParam(':etat', $etat);
-$insert->execute();
-	if(isset($_POST["maj"])){
 
-	}
-?>
 	<!-- /.container-fluid-->
 	<!-- /.content-wrapper-->
 
@@ -197,12 +202,24 @@ include "include/foot.php";
 	<!-- Custom scripts for this page-->
 	<script src="js/sb-admin-datatables.min.js"></script>
 	<script src="js/sb-admin-charts.min.js"></script>
-	<script>
-	var id_rqst = 0;
+	
+
+
+
+
+
+		<!-- Custom script for the update button-->
+	<script type="text/javascript">
+
 	function id_request(newValue){
-		id_rqst = newValue;
+		var id_rqst = 0;
+		document.getElementById("value_id_hidden").value = newValue;
 	}
-	</script>
+	</script>	
+
+
+
+
 </body>
 
 </html>

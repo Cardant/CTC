@@ -54,7 +54,7 @@ while ($array_client_ctc_request = $client_ctc_request->fetch()) {
 						}elseif($array_client_ctc_request["etat"]==2){
 							echo "Terminée";
 						} ?></td>
-						<td><?php echo $array_client_ctc_request["Commentaire"] ?></td>
+						<td><?php echo $array_client_ctc_request["commentaire"] ?></td>
 						</tr>
 						</tbody>
 						<?php }?>
@@ -63,7 +63,7 @@ while ($array_client_ctc_request = $client_ctc_request->fetch()) {
 				</div>
 				</div>
 				<div>
-				<a href="index.php"><button type=button class="btn btn-primary" style="margin-left:45%">Revenir en arrière</button></a>
+				<a href="index.php"><button type=button class="btn btn-light" style="margin-left:45%">Revenir en arrière</button></a>
 				</div>
 
 

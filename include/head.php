@@ -49,7 +49,7 @@
             <li class="nav-item">
 			<?php
 			if(!empty($_SESSION['login'])){
-				 echo"<form method='post'><button class='btn btn-primary btn-block' name='deconnexion'>Logout</button></form>";
+				 echo"<form method='post'><button class='btn btn-light btn-block' name='deconnexion'>Logout</button></form>";
 				 }
 			?>
         </li>
