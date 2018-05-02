@@ -11,6 +11,7 @@ if (!empty($_SESSION['login'])) {
 		header('Location: technicien.php');
 	} else if($_SESSION["rang"] == 0) {
 	header('Location: client.php');
+	}
 }
 include "include/head.php";
 ?>
