@@ -9,8 +9,7 @@ if (!empty($_SESSION['login'])) {
 
 	if ($_SESSION["rang"] == 1) {
 		header('Location: technicien.php');
-	}
-} else if($_SESSION["rang"] == 0) {
+	} else if($_SESSION["rang"] == 0) {
 	header('Location: client.php');
 }
 include "include/head.php";
