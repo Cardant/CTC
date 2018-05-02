@@ -5,6 +5,14 @@ require 'pdo.php';
 // Connexion à la base de données
 $bdd = new PDO('mysql:host=' . $PARAM_hote . ';dbname=' . $PARAM_nom_bd . ';charset=utf8', $PARAM_utilisateur, $PARAM_mot_passe);
 
+if (!empty($_SESSION['login'])) {
+
+	if ($_SESSION["rang"] == 1) {
+		header('Location: technicien.php');
+	}
+} else if($_SESSION["rang"] == 0) {
+	header('Location: client.php');
+}
 include "include/head.php";
 ?>
 

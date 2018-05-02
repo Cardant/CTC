@@ -49,9 +49,9 @@
             <li class="nav-item">
 			<?php
 			if(!empty($_SESSION['login'])){
-				 echo"<form method='post'><button class='btn btn-light btn-block' name='deconnexion'><i class='fa fa-sign-out' aria-hidden='true'></i> Logout</button></form>";
-				 }else{
-					echo"<a href='login.php'><button class='btn btn-light btn-block' name='connexion'><i class='fa fa-sign-in' aria-hidden='true'></i> Login</button></a>";
+				echo"<form method='post'><button class='btn btn-light btn-block' name='deconnexion'><i class='fa fa-sign-out' aria-hidden='true'></i> Logout</button></form>";
+			}else{
+				echo"<a href='login.php'><button class='btn btn-light btn-block' name='connexion'><i class='fa fa-sign-in' aria-hidden='true'></i> Login</button></a>";
 				 }
 				 
 			?>
@@ -69,7 +69,7 @@ if(isset($_POST['deconnexion'])) { // si le bouton "Connexion" est appuyé
 			// Supression des cookies de connexion automatique
 			setcookie('login', '');
 			setcookie('pass_hache', '');
-			header('Location: login.php');
+			header('Location: index.php');
 	 
 }
 ?>
