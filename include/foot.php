@@ -1,6 +1,6 @@
-<footer class="sticky-footer" style=width:100%;>
+<footer class="sticky-footer bg-dark" style=width:100%;>
       <div class="container">
-        <div class="text-center">
+        <div class="text-center" style="color:white;">
           <small>Copyright © SOLEA 2017</small>
         </div>
       </div>

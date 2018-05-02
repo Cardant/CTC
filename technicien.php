@@ -52,57 +52,44 @@ while ($row = $req->fetch()) {
 
     $user = 'SELECT * FROM users WHERE id="' . $row["user_id"] . '"';
     $userboard = $bdd->query($user);
-    $line = $userboard->fetch();
-
-    /*   $getId='SELECT * FROM ctc_request WHERE user_id="'.$line['id'].'"';
-    $id_client = $bdd->query($getId);
-    $id = $id_client->fetch();*/
+    $line = $userboard->fetch();$x = 1;
     ?>
 	<td><?php echo $line['nom']; ?></td>
-	<td><?php echo $line['prenom'] ?></td>
-	<td><?php echo $line['mail'] ?></td>
-	<td><?php echo $line['telephone'] ?></td>
-	<td><?php echo $row['dates'] ?></td>
-	<?php 
-		$rowdate= $row['dates'];
+	<td><?php echo $line['prenom']; ?></td>
+	<td><?php echo $line['mail']; ?></td>
+	<td><?php echo $line['telephone']; ?></td>
+	<td><?php echo $row['dates']; ?></td>
 
-			if(isset($_POST["maj"])){
-				echo $_POST["state"];
-				echo $_POST["commentaire"];
-				echo $_POST["value_id"];
-
-				$insert = $bdd->prepare('UPDATE `ctc_request` SET etat=:etat, commentaire=:commentaire WHERE id=:id_rqst2');
-				$insert->bindParam(':commentaire', $_POST["commentaire"]);
-				$insert->bindParam(':etat', $_POST["state"]);
-				$insert->bindParam(':id_rqst2', $_POST["value_id"]);
-				$insert->execute();
-			}
-	?>
 	<td><?php
+	
 	if ($row['etat'] == 0) {
         echo 'En attente';
     } elseif ($row['etat'] == 1) {
         echo 'En cours';
     } else {
-        echo 'Terminé';}?></td>
-				<td>
-				
-				<button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#maj" onclick="id_request(<?php echo $row['id']?>)"><i class="fa fa-edit"></i> Update</button></td>				
-				<td>
-				<form method="post" action="historique.php">
-					<input name="id" type="hidden" value="<?php echo $line['id'] ?>"></input>
-						<button type="submit" class="btn btn-dark btn-sm"><i class="fa fa-file" aria-hidden="true"></i> Historique</button>
-					</form></td>				
+		echo 'Terminé';
+	}?>
+	</td>
+	<td> <?php  
+	$comm = $row["commentaire"];
+	?>
+		<button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#maj" onclick="func_id_request(<?php echo $row['id']?>,<?php echo $row['etat']?>,'<?php echo $row['commentaire']?>')"><i class="fa fa-edit"></i> Edit</button>
+	</td>				
+	<td>
+	<form method="post" action="historique.php">
+		<input name="id" type="hidden" value="<?php echo $line['id'] ?>"></input>
+			<button type="submit" class="btn btn-dark btn-sm"><i class="fa fa-file" aria-hidden="true"></i> Historique</button>
+		</form></td>				
 
-					
-				
-			  </tr>
-			  <?php } ?>
-			  </tbody>
-			</table>
-		  </div>
-		</div>
-	  </div>
+		
+	
+	</tr>
+	<?php } ?>
+	</tbody>
+</table>
+</div>
+</div>
+</div>
 
 <div class="modal fade" id="maj" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
@@ -114,18 +101,19 @@ while ($row = $req->fetch()) {
 					</button>
 				</div>
 				<div class="modal-body" style="text-align:center;">
-					<form method="post" action="technicien.php">
-					<label for="value_id_hidden">ID de la requête :</label><br>
-					<input name="value_id" class="form-control" id="value_id_hidden" value="0" disabled="disabled" style="text-align:center;"></input><br>
+					<form name="update_request" method="post" action="technicien.php">
+					<input name="value_id_hidden" class="form-control" id="value_id_hidden" value="0" type="hidden" style="text-align:center;"></input><br>
 					<label for="state">Etat de la requête :</label><br>
-					<select class="form-control" id="state" name="state">
+					<select class="form-control" id="state" name="state" style="text-align: center; text-align-last: center;">
 					<option name="attente" value="0">En attente</option>
 					<option name="cours" value="1">En cours</option>
 					<option name="terminee" value="2">Terminée</option>
 					</select><br>
-					<label for="commentaire">Commentaire :</label><br>
-					<textarea class="form-control" id="commentaire"name="commentaire" rows="3" col="10">
-					</textarea><br>
+					<div class="form-group">
+  						<label for="commentaire">Commentaire:</label><br>
+						  
+  						<textarea class="form-control"id="commentaire"name="commentaire"  rows="3"></textarea><br>
+						</div>
 				</div>
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button>
@@ -158,7 +146,6 @@ include "include/foot.php";
 			$tech_info = $old_dispo_intab->fetch();
 			$old_dispo = $tech_info['etat_disponible'];
 
-			//code à modifier pour la couleur du patch -> besoin de js ou ajax
 			if($old_dispo==0){
 				$old_color ="green";
 				$new_dispo=1;
@@ -171,7 +158,7 @@ include "include/foot.php";
 
 
 		?>
-		<form method="post" action="technicien.php"   onsubmit='setTimeout(function(){window.location.reload();},10)'>
+		<form method="post" action="technicien.php">
 		<div class='alert alert-dark' role='alert'>
 				Disponibilité actuelle : <?php if ($old_dispo==0){
 													echo "Disponible";
@@ -189,6 +176,17 @@ include "include/foot.php";
 				$insert = $bdd->prepare('UPDATE worktime SET etat_disponible=:new_dispo WHERE id_technicien=:id_tech');
 				$insert->bindParam(':new_dispo', $new_dispo);
 				$insert->bindParam(':id_tech', $_SESSION["id"]);
+				$insert->execute();
+			}
+			if(isset($_POST["maj"])){
+				echo $_POST["state"];
+				echo $_POST["commentaire"];
+				echo $_POST["value_id_hidden"];
+
+				$insert = $bdd->prepare('UPDATE `ctc_request` SET etat=:etat, commentaire=:commentaire WHERE id=:id_rqst2');
+				$insert->bindParam(':commentaire', $_POST["commentaire"]);
+				$insert->bindParam(':etat', $_POST["state"]);
+				$insert->bindParam(':id_rqst2', $_POST["value_id_hidden"]);
 				$insert->execute();
 			}
 		?>
@@ -212,22 +210,28 @@ include "include/foot.php";
 	<script src="js/sb-admin-charts.min.js"></script>
 	
 
-
-
-
-
-		<!-- Custom script for the update button-->
+	<!-- Custom script for the update button-->
 	<script type="text/javascript">
-	function id_request(newValue){
-		document.getElementById("value_id_hidden").value = newValue;
+	function func_id_request(id_requete,etat,commentaire){
+		
+		document.getElementById("value_id_hidden").value = id_requete;
+		if(etat==0){
+			document.getElementById('state').value="0";
+		}else if(etat==1){
+
+			document.getElementById('state').value="1";
+		}else{
+
+			document.getElementById('state').value="2";
+		}
+		document.getElementById("commentaire").value = commentaire;
+
 	}
 	</script>	
 
-	<script type="text/javascript">
-	function id_request_historique(newValue){
-		document.getElementById("value_id_client_hidden").value = newValue;
-	}
-	</script>	
+
+
+	
 
 
 

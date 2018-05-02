@@ -16,7 +16,7 @@ if (!empty($_SESSION['login'])) {
 include "include/head.php";
 ?>
 
-<div class="jumbotron">
+<div class="jumbotron" style="background-color:white;">
   <h1 class="display-4">Bienvenue sur le site de Solea!</h1>
   <p class="lead">Vous êtes client chez Solea ? Vous avez besoin de contacter un technicien ? Vous êtes au bon endroit.</p>
   <hr class="my-4">

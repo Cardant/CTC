@@ -2,7 +2,15 @@
 require'pdo.php';
 session_start(); // à mettre tout en haut du fichier .php, cette fonction propre à PHP servira à maintenir la $_SESSION
 $bdd = new PDO('mysql:host='.$PARAM_hote.';dbname='.$PARAM_nom_bd.';charset=utf8',$PARAM_utilisateur , $PARAM_mot_passe);
-include("include/head.php")
+include("include/head.php");
+
+if (!empty($_SESSION['login'])) {
+	if ($_SESSION["rang"] == 1) {
+		header('Location: technicien.php');
+	} else if($_SESSION["rang"] == 0) {
+	header('Location: client.php');
+	}
+}
 ?>
 
 <?php 
@@ -22,7 +30,7 @@ echo"<body class='bg-dark'>
           </div>
           <div class='form-group'>
             <label for='exampleInputPassword1'>Password</label>
-            <input class='form-control' name='password' id='exampleInputPassword1' type='password' placeholder='Password'>
+            <input class='form-control' name='password' id='exampleInputPassword1' type='password' aria-describedby='Password' placeholder='Password'>
           </div>
           <button class='btn btn-dark btn-block' name='connexion'>Login</button><br>
         </form>

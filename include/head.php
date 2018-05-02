@@ -15,7 +15,7 @@
   <!-- Custom styles for this template-->
   <link href="css/sb-admin.css" rel="stylesheet">
 </head>
-<body class="fixed-nav sticky-footer bg-dark" id="page-top">
+<body class="fixed-nav sticky-footer" id="page-top">
   
   <!-- Navigation-->
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
@@ -51,7 +51,7 @@
 			if(!empty($_SESSION['login'])){
 				echo"<form method='post'><button class='btn btn-light btn-block' name='deconnexion'><i class='fa fa-sign-out' aria-hidden='true'></i> Logout</button></form>";
 			}else{
-				echo"<a href='login.php'><button class='btn btn-light btn-block' name='connexion'><i class='fa fa-sign-in' aria-hidden='true'></i> Login</button></a>";
+				echo"<a href='login.php' style='text-decoration:none;'><button class='btn btn-light btn-block' name='connexion'><i class='fa fa-sign-in' aria-hidden='true'></i> Login</button></a>";
 				 }
 				 
 			?>
