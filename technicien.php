@@ -158,7 +158,7 @@ include "include/foot.php";
 
 
 		?>
-		<form method="post" action="technicien.php">
+		<form method="post" action="technicien.php" onsubmit='setTimeout(function(){window.location.reload();},10)'>
 		<div class='alert alert-dark' role='alert'>
 				Disponibilité actuelle : <?php if ($old_dispo==0){
 													echo "Disponible";
@@ -228,13 +228,6 @@ include "include/foot.php";
 
 	}
 	</script>	
-
-
-
-	
-
-
-
 </body>
 
 </html>
