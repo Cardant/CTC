@@ -73,7 +73,7 @@ while ($row = $req->fetch()) {
 	<td> <?php  
 	$comm = $row["commentaire"];
 	?>
-		<button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#maj" onclick="func_id_request(<?php echo $row['id']?>,<?php echo $row['etat']?>,'<?php echo $row['commentaire']?>')"><i class="fa fa-edit"></i> Edit</button>
+		<button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#maj" onclick="func_id_request(<?php echo $row['id']?>,<?php echo $row['etat']?>,'<?php echo $row['commentaire']?>')"><i class="fa fa-edit"></i> Mettre à jour</button>
 	</td>				
 	<td>
 	<form method="post" action="historique.php">
@@ -118,7 +118,7 @@ while ($row = $req->fetch()) {
 				<div class="modal-footer">
 					<button class="btn btn-secondary" type="button" data-dismiss="modal">Fermer</button>
 
-					<button type="submit" name="maj" class="btn btn-primary">Valider</button>
+					<button type="submit" name="maj" class="btn btn-dark">Valider</button>
 					</form>
 				</div>
 			</div>

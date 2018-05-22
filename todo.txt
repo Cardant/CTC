@@ -1,10 +1,3 @@
-﻿A FAIRE:
-
-Faire en sorte de pouvoir écrire dans la base de données depuis l'asterisk pour:
-- changer l'etat de disponibilité des techniciens lorsqu'il prend l'appel et lorsqu'il raccroche,
-- changer le timer des techniciens ( incrémentation du timer lorsqu'il raccroche),
-
-Ecriture d'un script qui passe l'etat d'un technicien à "indisponible" en dehors de ses horaires de travail.
-
-Terminer le bouton de mise à jour des requêtes dans interface technicien
-
+Recheck l'extension
+Faire fonctionner click to call
+mettre en place la nouvelle table et ajouter la page corresponante ( historique de tous les appels )
