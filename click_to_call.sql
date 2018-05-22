@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  localhost
--- Généré le :  Mer 28 Mars 2018 à 09:23
+-- Généré le :  Mar 22 Mai 2018 à 07:51
 -- Version du serveur :  5.7.11
--- Version de PHP :  7.0.3
+-- Version de PHP :  5.6.18
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -31,19 +31,19 @@ CREATE TABLE `ctc_request` (
   `user_id` int(5) NOT NULL,
   `dates` varchar(50) NOT NULL,
   `etat` int(2) NOT NULL,
-  `Commentaire` text
+  `commentaire` text
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Contenu de la table `ctc_request`
 --
 
-INSERT INTO `ctc_request` (`id`, `user_id`, `dates`, `etat`, `Commentaire`) VALUES
+INSERT INTO `ctc_request` (`id`, `user_id`, `dates`, `etat`, `commentaire`) VALUES
 (15, 3, '31/01/2018 - 09:27:29', 2, 'Problème au niveau de la conf de la box'),
 (16, 3, '31/01/2018 - 09:29:57', 2, 'Le dépannage a été réalisé sans problème.'),
-(52, 3, '07/02/2018 - 07:28:40', 0, NULL),
-(53, 1, '07/02/2018 - 08:36:07', 1, NULL),
-(54, 3, '28/03/2018 - 08:39:47', 0, NULL);
+(52, 3, '07/02/2018 - 07:28:40', 2, 'terminado'),
+(53, 1, '07/02/2018 - 08:36:07', 0, 'bonjour'),
+(54, 3, '28/03/2018 - 08:39:47', 1, 'en cours');
 
 -- --------------------------------------------------------
 
@@ -94,9 +94,9 @@ CREATE TABLE `worktime` (
 --
 
 INSERT INTO `worktime` (`id`, `id_technicien`, `nom_technicien`, `prenom_technicien`, `timer`, `etat_disponible`) VALUES
-(1, 2, 'tech', 'tech', 500, 1),
-(2, 4, 'technicien2', 'technicien2', 350, 1),
-(3, 5, 'technicien3', 'technicien3', 150, 1),
+(1, 2, 'tech', 'tech', 0, 0),
+(2, 4, 'technicien2', 'technicien2', 0, 1),
+(3, 5, 'technicien3', 'technicien3', 0, 1),
 (4, 6, 'technicien4', 'technicien4', 0, 1);
 
 --
@@ -151,6 +151,14 @@ ALTER TABLE `worktime`
 --
 ALTER TABLE `worktime`
   ADD CONSTRAINT `fk_id_technicien` FOREIGN KEY (`id_technicien`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+DELIMITER $$
+--
+-- Événements
+--
+CREATE DEFINER=`admin`@`%` EVENT `reset_timer` ON SCHEDULE EVERY 1 DAY STARTS '2018-05-22 23:59:00' ON COMPLETION NOT PRESERVE ENABLE COMMENT 'Reset le timer des techniciens à minuit chaque jour.' DO UPDATE worktime SET timer = 0$$
+
+DELIMITER ;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
