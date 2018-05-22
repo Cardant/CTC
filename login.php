@@ -26,13 +26,13 @@ echo"<body class='bg-dark'>
         <form method='post'>
           <div class='form-group'>
             <label for='exampleInputEmail1'>Login</label>
-            <input class='form-control' name='login' id='exampleInputEmail1' type='Login' aria-describedby='Login' placeholder='Enter login'>
+            <input class='form-control' name='login' id='exampleInputEmail1' type='Login' aria-describedby='Login' placeholder='Entrer votre login'>
           </div>
           <div class='form-group'>
             <label for='exampleInputPassword1'>Password</label>
-            <input class='form-control' name='password' id='exampleInputPassword1' type='password' aria-describedby='Password' placeholder='Password'>
+            <input class='form-control' name='password' id='exampleInputPassword1' type='password' aria-describedby='Password' placeholder='Entrer votre Mot de passe'>
           </div>
-          <button class='btn btn-dark btn-block' name='connexion'>Login</button><br>
+          <button class='btn btn-dark btn-block' name='connexion'>Valider</button><br>
         </form>
           <a href='index.php'style='text-decoration:none'><button type='button' class='btn btn-dark btn-block'>Retourner à l'accueil</button></a>
       </div>
@@ -71,9 +71,7 @@ if(isset($_POST['connexion'])) { // si le bouton "Connexion" est appuyé
     }
 
 $action ='';
-if($logOk =='ok'){
-	echo"je suis dans le cas ou log = ok";
-	
+if($logOk =='ok'){	
 	if($_SESSION['rang']==0){
 
 		  header('Location: client.php');  

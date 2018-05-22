@@ -34,15 +34,13 @@ else{
 //Affichage du tableau des requetes click to call
 echo "  <div class='card mb-3'>
 			<div class='card-header'>
-				<h3 style='text-align:center; color:black;'>Tableau des Requêtes du client nommé " . $array_client_private_info['nom'] . "</h1>
+				<h3 style='text-align:center; color:black;'>Tableau des Requêtes de " .$array_client_private_info['prenom']." ".$array_client_private_info['nom'] . "</h1>
 			</div>
 			<div class='card-body'>
 				<div class='table-responsive'>
 					<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'  style='text-align:center;'>
 						<thead>
 							<tr>
-								<th>ID requête</th>
-								<th>ID client</th>
 								<th>Date de requête</th>
 								<th>Etat de la requête</th>
 								<th>Commentaire</th>
@@ -51,8 +49,6 @@ echo "  <div class='card mb-3'>
 						<tbody>";
 							while ($array_client_ctc_request = $client_ctc_request->fetch()) {
 								?>
-								<td><?php echo $array_client_ctc_request["id"] ?></td>
-								<td><?php echo $array_client_ctc_request["user_id"] ?></td>
 								<td><?php echo $array_client_ctc_request["dates"] ?></td>
 								<td><?php if($array_client_ctc_request["etat"]==1){
 											echo "En cours";
