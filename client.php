@@ -18,11 +18,11 @@ include "include/head.php";
 ?>
 <div class="content-wrapper">
 	<div style="width:60%;margin-left:20%;margin-top:5%;">
-		<button type="button" class="btn btn-light btn-block" data-toggle="modal" data-target="#fiche" style="width:60%;margin-left:20%;"><i class="fa fa-fw fa-address-card"></i> Fiche Personnelle</button>
+		<button type="button" class="btn btn-dark btn-block" data-toggle="modal" data-target="#fiche" style="width:60%;margin-left:20%;"><i class="fa fa-fw fa-address-card"></i> Fiche Personnelle</button>
 	</div>
 	<form method="post" action="client.php">
 			<div  style="float:left;width:60%;margin-left:20%;margin-top:5%">
-			<button type="button" class="btn btn-light btn-block" data-toggle="modal" data-target="#appel" style="width:60%;margin-left:20%;"><i class="fa fa-fw fa-phone" ></i>Appel de Dépannage</button>
+			<button type="button" class="btn btn-dark btn-block" data-toggle="modal" data-target="#appel" style="width:60%;margin-left:20%;"><i class="fa fa-fw fa-phone" ></i>Appel de Dépannage</button>
 
 			<!--<button class="btn btn-info btn-lg" type="submit" name="envoie" style="width:60%;margin-left:20%;"></i></button>-->
 		</div>
