@@ -39,23 +39,68 @@
 	//Si l'utilisateur n'est pas enregistré
 	else{
 		echo "<a class='navbar-brand' href='technicien.php' style='margin-left:30%;'>BIENVENUE</a>";
-	}
-		?>
-	
-            
-
+	}?>
     <div class="collapse navbar-collapse" id="navbarResponsive">
-      <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-			<?php
-			if(!empty($_SESSION['login'])){
-				echo"<form method='post'><button class='btn btn-light btn-block' name='deconnexion'><i class='fa fa-sign-out' aria-hidden='true'></i> Logout</button></form>";
-			}else{
-				echo"<a href='login.php' style='text-decoration:none;'><button class='btn btn-light btn-block' name='connexion'><i class='fa fa-sign-in' aria-hidden='true'></i> Login</button></a>";
-				 }
-				 
-			?>
+      <ul class="navbar-nav ml-auto" style="margin-right:2%">
+			<?php 
+			if(!empty($_SESSION["login"])){
+				if($_SESSION["rang"]==1){ ?>
+				
+        <li class="nav-item" style="margin-right:2%;">
+				<?php	
+			$old_dispo_requete = 'SELECT * FROM worktime WHERE id_technicien="'.$_SESSION["id"].'"';
+			$old_dispo_intab = $bdd->query($old_dispo_requete);
+			$tech_info = $old_dispo_intab->fetch();
+			$old_dispo = $tech_info['etat_disponible'];
+
+			if($old_dispo==0){
+				$old_color ="green";
+				$new_dispo=1;
+			}
+			if($old_dispo==1){
+				$old_color ="red";
+				$new_dispo=0;
+			}?>
+			<form method="post" action="technicien.php" onsubmit='setTimeout(function(){window.location.reload();},10)'>
+
+<button type=submit name="bouton_dispo" class="btn btn-default btn-block" style="color:white;background:<?php echo $old_color ?>;">Modifier votre disponibilité</button>
+</form>
+<?php
+	if (isset($_POST['bouton_dispo'])) { // si le bouton "bouton_dispo" est appuyé
+		
+		$insert = $bdd->prepare('UPDATE worktime SET etat_disponible=:new_dispo WHERE id_technicien=:id_tech');
+		$insert->bindParam(':new_dispo', $new_dispo);
+		$insert->bindParam(':id_tech', $_SESSION["id"]);
+		$insert->execute();
+	}
+	if(isset($_POST["maj"])){
+		echo $_POST["state"];
+		echo $_POST["commentaire"];
+		echo $_POST["value_id_hidden"];
+
+		$insert = $bdd->prepare('UPDATE `ctc_request` SET etat=:etat, commentaire=:commentaire WHERE id=:id_rqst2');
+		$insert->bindParam(':commentaire', $_POST["commentaire"]);
+		$insert->bindParam(':etat', $_POST["state"]);
+		$insert->bindParam(':id_rqst2', $_POST["value_id_hidden"]);
+		$insert->execute();
+	}
+?>
+				</li>
+				<li class="nav-item" style="margin-right:2%">
+				<a href="appels.php" style="text-decoration:none;"><button type=button name="historique_appels" class="btn btn-light btn-block" style="color:black;">Historique d'appels</button></a>
+
+				</li> <?php }} ?>
+				<li class="nav-item">
+					<?php
+					if(!empty($_SESSION['login'])){
+						echo"<form method='post'><button class='btn btn-light btn-block' name='deconnexion'><i class='fa fa-sign-out' aria-hidden='true'></i> Logout</button></form>";
+					}else{
+						echo"<a href='login.php' style='text-decoration:none;'><button class='btn btn-light btn-block' name='connexion'><i class='fa fa-sign-in' aria-hidden='true'></i> Login</button></a>";
+						}
+					?>
         </li>
+				
+			
       </ul>
     </div>
   </nav>

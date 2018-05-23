@@ -57,15 +57,16 @@ echo "  <div class='card mb-3'>
 								} ?></td>
 								<td><?php echo $row["commentaire"] ?></td>
 								</tr>
+								<?php }?>
 								</tbody>
-							<?php }?>
+							
 					</table>
 				</div>
 			</div>
 		</div>
 <?php } ?>
 				<div>
-				<a href="technicien.php"><button type=button class="btn btn-light" style="margin-left:45%">Revenir en arrière</button></a>
+				<a href="technicien.php"><button type=button class="btn btn-dark" style="margin-left:10%">Revenir en arrière</button></a>
 				</div>
 
 

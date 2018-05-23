@@ -79,10 +79,7 @@ while ($row = $req->fetch()) {
 		echo 'Terminé';
 	}?>
 	</td>
-	<td> <?php  
-	$comm = $row["commentaire"];
-	?>
-		<button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#maj" onclick="func_id_request(<?php echo $row['id']?>,<?php echo $row['etat']?>,'<?php echo $row['commentaire']?>')"><i class="fa fa-edit"></i> Mettre à jour</button>
+	<td><button type="button" class="btn btn-dark btn-sm" data-toggle="modal" data-target="#maj" onclick="func_id_request(<?php echo $row['id']?>,<?php echo $row['etat']?>,'<?php echo $row['commentaire']?>')"><i class="fa fa-edit"></i> Mettre à jour</button>
 	</td>				
 	<td>
 	<form method="post" action="historique.php">
@@ -162,49 +159,6 @@ include "include/foot.php";
 
 
 		?>
-	<div class='alert alert-dark' style='text-align:center' role='alert'>
-				Disponibilité actuelle : <?php if ($old_dispo==0){
-													echo "Disponible";
-												}else{
-													echo "Indisponible";
-												}
-												?>
-  		</div>
-
-	<div class="row" style="padding-bottom:10px;">
-		<div class="col-md-5">
-		</div>
-		<div class="col-md-2">
-		
-		
-		<form method="post" action="technicien.php" onsubmit='setTimeout(function(){window.location.reload();},10)'>
-
-		<button type=submit name="bouton_dispo" class="btn btn-default btn-block" style="color:white;background:<?php echo $old_color ?>;">Modifier votre disponibilité</button>
-		</form>
-		<?php
-			if (isset($_POST['bouton_dispo'])) { // si le bouton "bouton_dispo" est appuyé
-				
-				$insert = $bdd->prepare('UPDATE worktime SET etat_disponible=:new_dispo WHERE id_technicien=:id_tech');
-				$insert->bindParam(':new_dispo', $new_dispo);
-				$insert->bindParam(':id_tech', $_SESSION["id"]);
-				$insert->execute();
-			}
-			if(isset($_POST["maj"])){
-				echo $_POST["state"];
-				echo $_POST["commentaire"];
-				echo $_POST["value_id_hidden"];
-
-				$insert = $bdd->prepare('UPDATE `ctc_request` SET etat=:etat, commentaire=:commentaire WHERE id=:id_rqst2');
-				$insert->bindParam(':commentaire', $_POST["commentaire"]);
-				$insert->bindParam(':etat', $_POST["state"]);
-				$insert->bindParam(':id_rqst2', $_POST["value_id_hidden"]);
-				$insert->execute();
-			}
-		?>
-		</div>
-		<div class="col-md-5">
-		</div>
-	</div>
 <!-- Bootstrap core JavaScript-->
 <script src="vendor/jquery/jquery.min.js"></script>
 	<script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

@@ -3,8 +3,7 @@ session_start();
 
 require 'pdo.php';
 // Connexion à la base de données
-$clicktocall = new PDO('mysql:host=' . $PARAM_hote . ';dbname=' . $PARAM_nom_bd . ';charset=utf8', $PARAM_utilisateur, $PARAM_mot_passe);
-$asterisk = new PDO('mysql:host=' . $PARAM_hote . ';dbname=asterisk;charset=utf8', $PARAM_utilisateur, $PARAM_mot_passe);
+$bdd = new PDO('mysql:host=' . $PARAM_hote . ';dbname=' . $PARAM_nom_bd . ';charset=utf8', $PARAM_utilisateur, $PARAM_mot_passe);
 
 
 // Condition pour afficher la page : être technicien Sinon redirection vers la page de connexion
@@ -21,13 +20,13 @@ include "include/head.php";
 
 <?php
 $phones_historic_request = 'SELECT * FROM cdr';
-$phones_historic = $asterisk->query($phones_historic_request);
+$phones_historic = $bdd->query($phones_historic_request);
 $array_phones_historic = $phones_historic->fetch();
 
 $num_rows = $phones_historic->rowCount();
 if($num_rows==0){
-	echo "	<div class='alert alert-danger' role='alert'>
-				Aucun résultat, le client n'a pas de requêtes terminées.
+	echo "	<div class='alert alert-danger' style='text-align:center;' role='alert'>
+				Aucun résultat, il n'y a pas d'appels dans la base de données.
   			</div>";
 }
 else{
@@ -53,15 +52,16 @@ echo "  <div class='card mb-3'>
 								<td><?php echo $array_phones_historic["dst"] ?></td>
 								<td><?php echo $array_phones_historic["duration"] ?></td>
 								</tr>
+								<?php }?>
 								</tbody>
-							<?php }?>
+							
 					</table>
 				</div>
 			</div>
 		</div>
 <?php } ?>
 				<div>
-				<a href="technicien.php"><button type=button class="btn btn-light" style="margin-left:45%">Revenir en arrière</button></a>
+				<a href="technicien.php"><button type=button class="btn btn-dark" style="margin-left:10%;margin-bottom:2%;">Revenir en arrière</button></a>
 				</div>
 
 
