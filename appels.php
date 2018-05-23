@@ -3,7 +3,9 @@ session_start();
 
 require 'pdo.php';
 // Connexion à la base de données
-$bdd = new PDO('mysql:host=' . $PARAM_hote . ';dbname=' . $PARAM_nom_bd . ';charset=utf8', $PARAM_utilisateur, $PARAM_mot_passe);
+$clicktocall = new PDO('mysql:host=' . $PARAM_hote . ';dbname=' . $PARAM_nom_bd . ';charset=utf8', $PARAM_utilisateur, $PARAM_mot_passe);
+$asterisk = new PDO('mysql:host=' . $PARAM_hote . ';dbname=asterisk;charset=utf8', $PARAM_utilisateur, $PARAM_mot_passe);
+
 
 // Condition pour afficher la page : être technicien Sinon redirection vers la page de connexion
 if (!empty($_SESSION['login'])) {
@@ -18,13 +20,11 @@ include "include/head.php";
 ?>
 
 <?php
-$client_ctc = 'SELECT * FROM ctc_request WHERE user_id=' . $_POST["id"] . ' AND  etat=2';
-$client_ctc_request = $bdd->query($client_ctc);
-$num_rows = $client_ctc_request->rowCount();
+$phones_historic_request = 'SELECT * FROM cdr';
+$phones_historic = $asterisk->query($phones_historic_request);
+$array_phones_historic = $phones_historic->fetch();
 
-$client_info = 'SELECT * FROM users WHERE id=' . $_POST["id"];
-$client_private_info = $bdd->query($client_info);
-$array_client_private_info = $client_private_info->fetch();
+$num_rows = $phones_historic->rowCount();
 if($num_rows==0){
 	echo "	<div class='alert alert-danger' role='alert'>
 				Aucun résultat, le client n'a pas de requêtes terminées.
@@ -34,28 +34,24 @@ else{
 //Affichage du tableau des requetes click to call
 echo "  <div class='card mb-3'>
 			<div class='card-header'>
-				<h3 style='text-align:center; color:black;'>Tableau des Requêtes de " .$array_client_private_info['prenom']." ".$array_client_private_info['nom'] . "</h1>
+				<h3 style='text-align:center; color:black;'>Tableau des appels</h1>
 			</div>
 			<div class='card-body'>
 				<div class='table-responsive'>
 					<table class='table table-bordered' id='dataTable' width='100%' cellspacing='0'  style='text-align:center;'>
 						<thead>
 							<tr>
-								<th>Date de requête</th>
-								<th>Etat de la requête</th>
-								<th>Commentaire</th>
+								<th>Date de l'appel</th>
+								<th>numéro du client</th>
+								<th>durée de l'appel</th>
 							</tr>
 						</thead>
 						<tbody>";
-							while ($row = $client_ctc_request->fetch()) {
+							while ($array_phones_historic = $phones_historic->fetch()) {
 								?>
-								<td><?php echo $row["dates"] ?></td>
-								<td><?php if($row["etat"]==1){
-											echo "En cours";
-								}elseif($row["etat"]==2){
-									echo "Terminée";
-								} ?></td>
-								<td><?php echo $row["commentaire"] ?></td>
+								<td><?php echo $array_phones_historic["calldate"] ?></td>
+								<td><?php echo $array_phones_historic["dst"] ?></td>
+								<td><?php echo $array_phones_historic["duration"] ?></td>
 								</tr>
 								</tbody>
 							<?php }?>

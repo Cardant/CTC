@@ -21,6 +21,17 @@ include "include/head.php";
 	  <!-- Example DataTables Card-->
 
   <?php
+
+$requete = 'SELECT * FROM ctc_request WHERE etat=0 or etat=1';
+$req = $bdd->query($requete);
+$num_rows = $req->rowCount();
+if($num_rows==0){
+	echo "	<div class='alert alert-danger' role='alert'>
+				Aucun résultat, il n'y a aucune requêtes dans la base de données.
+  			</div>";
+}
+else{
+
 //Affichage du tableau des requetes click to call
 echo "<div class='card mb-3'>
 		<div class='card-header'>
@@ -44,9 +55,7 @@ echo "<div class='card mb-3'>
 			  </thead>
 			  <tbody>";
 
-//Requete PHP pour récupérer toute la table ctc_request
-$requete = 'SELECT * FROM ctc_request WHERE etat=0 or etat=1';
-$req = $bdd->query($requete);
+
 // boucle pour afficher toutes les lignes de la table ctc_request
 while ($row = $req->fetch()) {
 
@@ -90,7 +99,7 @@ while ($row = $req->fetch()) {
 </div>
 </div>
 </div>
-
+<?php } ?>
 <div class="modal fade" id="maj" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -101,7 +110,7 @@ while ($row = $req->fetch()) {
 					</button>
 				</div>
 				<div class="modal-body" style="text-align:center;">
-					<form name="update_request" method="post" action="technicien.php">
+					<form name="update_request" method="post" onsubmit='setTimeout(function(){window.location.reload();},10)' action="technicien.php">
 					<input name="value_id_hidden" class="form-control" id="value_id_hidden" value="0" type="hidden" style="text-align:center;"></input><br>
 					<label for="state">Etat de la requête :</label><br>
 					<select class="form-control" id="state" name="state" style="text-align: center; text-align-last: center;">
@@ -135,12 +144,7 @@ include "include/foot.php";
 
 	
 	</div>
-	<div class="row">
-		<div class="col-md-5">
-		</div>
-		<div class="col-md-2">
-		
-		<?php	
+	<?php	
 			$old_dispo_requete = 'SELECT * FROM worktime WHERE id_technicien="'.$_SESSION["id"].'"';
 			$old_dispo_intab = $bdd->query($old_dispo_requete);
 			$tech_info = $old_dispo_intab->fetch();
@@ -158,8 +162,7 @@ include "include/foot.php";
 
 
 		?>
-		<form method="post" action="technicien.php" onsubmit='setTimeout(function(){window.location.reload();},10)'>
-		<div class='alert alert-dark' role='alert'>
+	<div class='alert alert-dark' style='text-align:center' role='alert'>
 				Disponibilité actuelle : <?php if ($old_dispo==0){
 													echo "Disponible";
 												}else{
@@ -167,6 +170,14 @@ include "include/foot.php";
 												}
 												?>
   		</div>
+
+	<div class="row" style="padding-bottom:10px;">
+		<div class="col-md-5">
+		</div>
+		<div class="col-md-2">
+		
+		
+		<form method="post" action="technicien.php" onsubmit='setTimeout(function(){window.location.reload();},10)'>
 
 		<button type=submit name="bouton_dispo" class="btn btn-default btn-block" style="color:white;background:<?php echo $old_color ?>;">Modifier votre disponibilité</button>
 		</form>

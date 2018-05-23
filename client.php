@@ -104,7 +104,7 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	$strSecret = "secret";
 	# Numéro Technicien
 	#etat_disponible = 0 <=> disponbile / etat_disponible = 1 <=> indisponible
-	$numero = $bdd->prepare('SELECT * FROM worktime JOIN users on worktime.id=users.id WHERE etat_disponible = 0 ORDER BY timer LIMIT 1 ');
+	$numero = $bdd->prepare('SELECT * FROM worktime JOIN users on worktime.id_technicien=users.id WHERE etat_disponible = 0 ORDER BY timer LIMIT 1 ');
 	$numero->execute();
 	$numero_technicien = $numero->fetch();
 	$technicien = $numero_technicien['telephone'];
@@ -133,8 +133,9 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	}
 	echo "[DEBUG] numero du client : $strExten \n";
 	echo "[DEBUG] numero du technicien : $technicien \n";
+	echo "[DEBUG] strchannel : $strChannel \n";
 
-	$strCallerId = "Web Call $strExten";
+	$strCallerId = $numero_technicien["prenom"]." (Solea1)";
 	$length = strlen($strExten);
 
 	if ( /*$length == 4 && */is_numeric($strExten)) {
