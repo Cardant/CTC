@@ -136,7 +136,10 @@ if (isset($_POST['envoie'])) { // si le bouton "envoie" est appuyé
 	echo "[DEBUG] strchannel : $strChannel \n";
 
 	$strCallerId = $numero_technicien["prenom"]." (Solea1)";
-	$length = strlen($strExten);
+	if(strlen($strExten)==4){
+		$strExten = "0".$strExten;
+
+	}
 
 	if ( /*$length == 4 && */is_numeric($strExten)) {
 		$socket = fsockopen($strHost, 5038);

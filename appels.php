@@ -19,7 +19,7 @@ include "include/head.php";
 ?>
 
 <?php
-$phones_historic_request = 'SELECT * FROM cdr';
+$phones_historic_request = "SELECT * FROM cdr WHERE clid LIKE '%Solea1%'";
 $phones_historic = $bdd->query($phones_historic_request);
 $array_phones_historic = $phones_historic->fetch();
 
